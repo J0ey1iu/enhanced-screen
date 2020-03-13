@@ -43,7 +43,7 @@ public class SocketClient : MonoBehaviour {
 		          
 		        //+ "shell> nc -u 127.0.0.1 : "+port +" \n"
 		          
-		        + "\nLast Packet: \n"+ lastReceivedUDPPacket
+		        + "\nLast Packet: \n"+ "X:"+lastReceivedUDPPacket[0]+"  Y:"+lastReceivedUDPPacket[1]
 		          
 		        //+ "\n\nAll Messages: \n"+allReceivedUDPPackets
 		          
@@ -76,13 +76,14 @@ public class SocketClient : MonoBehaviour {
                 if (lastReceivedUDPPacket.Length== 0) {
                     continue;
                 } else {
-					// strtok (str,",")
-					float y_cur = float.Parse(curReceivedUDPPacket[1]);
-                    float y_last = float.Parse(lastReceivedUDPPacket[1]);
+
                     float x_cur = float.Parse(curReceivedUDPPacket[0]);
                     float x_last = float.Parse(lastReceivedUDPPacket[0]);
-                    x_offset = (x_cur - x_last) * para;
-					// mod:
+
+					float y_cur = float.Parse(curReceivedUDPPacket[1]);
+                    float y_last = float.Parse(lastReceivedUDPPacket[1]);
+                    
+					x_offset = (x_cur - x_last) * para;
 					y_offset = (y_cur - y_last) * para;
                 }
 
