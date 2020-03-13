@@ -20,12 +20,13 @@ public class SocketClient : MonoBehaviour {
 
 	public GameObject cam;
 	private float x_offset = 0f;
+	private float y_offset = 0f;
     private float para = 0.01f;
 	Thread receiveThread;
 	UdpClient client;
 	public int port;
-	public string lastReceivedUDPPacket = "";
-	public string curReceivedUDPPacket = "";
+	public string[] lastReceivedUDPPacket = new string[2];
+	public string[] curReceivedUDPPacket = new string[2];
 
 	void Start () {
 		init();
@@ -71,13 +72,18 @@ public class SocketClient : MonoBehaviour {
 				string text = Encoding.UTF8.GetString(data);
 				print (">> " + text);
                 lastReceivedUDPPacket = curReceivedUDPPacket;
-                curReceivedUDPPacket = text;
-                if (lastReceivedUDPPacket == "") {
+                curReceivedUDPPacket = text.Split(',');
+                if (lastReceivedUDPPacket.Length== 0) {
                     continue;
                 } else {
-                    float x_cur = float.Parse(curReceivedUDPPacket);
-                    float x_last = float.Parse(lastReceivedUDPPacket);
+					// strtok (str,",")
+					float y_cur = float.Parse(curReceivedUDPPacket[1]);
+                    float y_last = float.Parse(lastReceivedUDPPacket[1]);
+                    float x_cur = float.Parse(curReceivedUDPPacket[0]);
+                    float x_last = float.Parse(lastReceivedUDPPacket[0]);
                     x_offset = (x_cur - x_last) * para;
+					// mod:
+					y_offset = (y_cur - y_last) * para;
                 }
 
 			}catch(Exception e){
@@ -86,13 +92,13 @@ public class SocketClient : MonoBehaviour {
 		}
 	}
 
-	public string getLatestUDPPacket(){
+	public string[] getLatestUDPPacket(){
 		return lastReceivedUDPPacket;
 	}
 	
 	// Update is called once per frame
 	void Update() {
-		cam.transform.position = cam.transform.position - new Vector3(x_offset, 0, 0);
+		cam.transform.position = cam.transform.position - new Vector3(x_offset, y_offset, 0);
 	}
 
 	void OnApplicationQuit(){
