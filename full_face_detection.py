@@ -38,9 +38,9 @@ while True:
             if n == 33:
                 cv2.circle(resized, (x, y), 2, (0, 0, 255), -1)
                 # for sending x, y data
-                # bin_data = bytes("{}, {}".format(x, y), encoding='utf-8')
+                bin_data = bytes("{}, {}".format(x, y), encoding='utf-8')
                 # for sending x data
-                bin_data = bytes("{}".format(x), encoding='utf-8')
+                # bin_data = bytes("{}".format(x), encoding='utf-8')
                 sock.sendto(bin_data, (UDP_IP, UDP_PORT))
             else:
                 cv2.circle(resized, (x, y), 2, (0, 255, 0), -1)
