@@ -45,7 +45,7 @@ public class SocketClient : MonoBehaviour {
 		          
 		        //+ "shell> nc -u 127.0.0.1 : "+port +" \n"
 		          
-		        + "\nLast Packet: \n"+ "X:"+lastReceivedUDPPacket[0]+"  Y:"+lastReceivedUDPPacket[1]
+		        // + "\nLast Packet: \n"+ "X:"+lastReceivedUDPPacket[0]+"  Y:"+lastReceivedUDPPacket[1]
 		          
 		        //+ "\n\nAll Messages: \n"+allReceivedUDPPackets
 		          
@@ -70,13 +70,15 @@ public class SocketClient : MonoBehaviour {
 			try{
 				IPEndPoint anyIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
 				byte[] data = client.Receive(ref anyIP);
-
 				string text = Encoding.UTF8.GetString(data);
 				print (">> " + text);
                 lastReceivedUDPPacket = curReceivedUDPPacket;
                 curReceivedUDPPacket = text.Split(',');
-                if (lastReceivedUDPPacket.Length== 0) {
-                    continue;
+
+                if (curReceivedUDPPacket[0] == "no") {
+					// x_offset = x_offset;
+					// y_offset = y_offset;
+					
                 } else {
 
                     float x_cur = float.Parse(curReceivedUDPPacket[0]);
@@ -84,9 +86,11 @@ public class SocketClient : MonoBehaviour {
 
 					float y_cur = float.Parse(curReceivedUDPPacket[1]);
                     float y_last = float.Parse(lastReceivedUDPPacket[1]);
-                    
+					
 					x_offset = (x_cur - x_last) * x_para;
 					y_offset = (y_cur - y_last) * y_para;
+					// last_valid_offset_x = x_offset;
+					// last
                 }
 
 			}catch(Exception e){
