@@ -19,9 +19,11 @@ public class SocketClient : MonoBehaviour {
 
 
 	public GameObject cam;
+	public Transform target;
 	private float x_offset = 0f;
 	private float y_offset = 0f;
-    private float para = 0.01f;
+    private float y_para = 0.05f;
+    private float x_para = 0.04f;
 	Thread receiveThread;
 	UdpClient client;
 	public int port;
@@ -83,8 +85,8 @@ public class SocketClient : MonoBehaviour {
 					float y_cur = float.Parse(curReceivedUDPPacket[1]);
                     float y_last = float.Parse(lastReceivedUDPPacket[1]);
                     
-					x_offset = (x_cur - x_last) * para;
-					y_offset = (y_cur - y_last) * para;
+					x_offset = (x_cur - x_last) * x_para;
+					y_offset = (y_cur - y_last) * y_para;
                 }
 
 			}catch(Exception e){
@@ -100,6 +102,7 @@ public class SocketClient : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		cam.transform.position = cam.transform.position - new Vector3(x_offset, y_offset, 0);
+		cam.transform.LookAt(target);
 	}
 
 	void OnApplicationQuit(){
