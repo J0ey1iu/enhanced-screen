@@ -7,7 +7,7 @@ import time
 from typing import List
 from collections import deque
 
-from scipy.interpolate import interp1d
+# from scipy.interpolate import interp1d
 
 class Buffer:
     """
@@ -33,7 +33,11 @@ class Buffer:
             self.pts.append(point)
     
     def send_point(self, point: List[float]):
-        bin_data = bytes("{}, {}".format(x, y), encoding='utf-8')
+        bin_data = bytes("{},{}".format(x, y), encoding='utf-8')
+        self.sock.sendto(bin_data, (self.UDP_IP, self.UDP_PORT))
+
+    def send_null(self):
+        bin_data = bytes("{},{}".format('no', 'no'), encoding='utf-8')
         self.sock.sendto(bin_data, (self.UDP_IP, self.UDP_PORT))
 
 
@@ -43,7 +47,7 @@ if __name__ == "__main__":
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
-    b = Buffer(20)
+    b = Buffer(5)
     num_frame = 0
 
     start = time.time()
@@ -53,11 +57,13 @@ if __name__ == "__main__":
         resized = cv2.resize(frame, (16 * 30, 9 * 30))
         gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
 
-        faces = detector(gray)
+        faces = detector(gray)      
+        if len(faces) == 0:
+            b.send_null()
+            print("no message sent.")
         end = time.time()
         for face in faces:
             landmarks = predictor(gray, face)
-
             for n in range(0, 68):
                 x = landmarks.part(n).x
                 y = landmarks.part(n).y

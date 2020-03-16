@@ -54,7 +54,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\CameraShake.cs" />
+     <Compile Include="Assets\Scripts\LookAt.cs" />
      <Compile Include="Assets\Scripts\SocketClient.cs" />
+     <Compile Include="Assets\Scripts\TotalOffset.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/Users/liujiayu/Documents/ECS279/enhanced-screen/Enhanced-Screen/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
@@ -64,17 +67,17 @@
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>/Users/liujiayu/Documents/ECS279/enhanced-screen/Enhanced-Screen/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
- <Reference Include="Unity.TextMeshPro">
- <HintPath>/Users/liujiayu/Documents/ECS279/enhanced-screen/Enhanced-Screen/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>/Users/liujiayu/Documents/ECS279/enhanced-screen/Enhanced-Screen/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
- </Reference>
  <Reference Include="Unity.Postprocessing.Editor">
  <HintPath>/Users/liujiayu/Documents/ECS279/enhanced-screen/Enhanced-Screen/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Postprocessing.Runtime">
  <HintPath>/Users/liujiayu/Documents/ECS279/enhanced-screen/Enhanced-Screen/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro">
+ <HintPath>/Users/liujiayu/Documents/ECS279/enhanced-screen/Enhanced-Screen/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.DataPrivacy">
+ <HintPath>/Users/liujiayu/Documents/ECS279/enhanced-screen/Enhanced-Screen/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/Applications/Unity/Hub/Editor/2018.4.15f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
