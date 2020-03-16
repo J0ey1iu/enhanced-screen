@@ -22,8 +22,9 @@ public class SocketClient : MonoBehaviour {
 	public Transform target;
 	private float x_offset = 0f;
 	private float y_offset = 0f;
-    private float y_para = 0.05f;
-    private float x_para = 0.04f;
+    private float y_para = 0.08f;
+    private float x_para = 0.08f;
+	private double dist_thres = 1.0;
 	Thread receiveThread;
 	UdpClient client;
 	public int port;
@@ -45,12 +46,11 @@ public class SocketClient : MonoBehaviour {
 		          
 		        //+ "shell> nc -u 127.0.0.1 : "+port +" \n"
 		          
-		        + "\nLast Packet: \n"+ "X:"+lastReceivedUDPPacket[0]+"  Y:"+lastReceivedUDPPacket[1]
+		        // + "\nLast Packet: \n"+ "X:"+lastReceivedUDPPacket[0]+"  Y:"+lastReceivedUDPPacket[1]
 		          
 		        //+ "\n\nAll Messages: \n"+allReceivedUDPPackets
 		          
 		        ,style);
-
 	}
 
 	private void init(){
@@ -70,29 +70,42 @@ public class SocketClient : MonoBehaviour {
 			try{
 				IPEndPoint anyIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
 				byte[] data = client.Receive(ref anyIP);
-
 				string text = Encoding.UTF8.GetString(data);
-				print (">> " + text);
+				// print (">> " + text);
                 lastReceivedUDPPacket = curReceivedUDPPacket;
                 curReceivedUDPPacket = text.Split(',');
-                if (lastReceivedUDPPacket.Length== 0) {
-                    continue;
-                } else {
 
+                if (curReceivedUDPPacket[0] == "no") {
+					Debug.Log("No message received.\n");
+					x_offset = 0f;
+					y_offset = 0f;
+					lastReceivedUDPPacket = new string[2];
+					curReceivedUDPPacket = new string[2];
+                } else {
                     float x_cur = float.Parse(curReceivedUDPPacket[0]);
                     float x_last = float.Parse(lastReceivedUDPPacket[0]);
 
 					float y_cur = float.Parse(curReceivedUDPPacket[1]);
                     float y_last = float.Parse(lastReceivedUDPPacket[1]);
-                    
-					x_offset = (x_cur - x_last) * x_para;
-					y_offset = (y_cur - y_last) * y_para;
-                }
 
+					if (dist(x_cur, y_cur, x_last, y_last) < dist_thres) {
+						x_offset = 0f;
+						y_offset = 0f;
+					} else {
+						x_offset = (x_cur - x_last) * x_para;
+						y_offset = (y_cur - y_last) * y_para;
+					}
+                }
 			}catch(Exception e){
 				print (e.ToString());
 			}
 		}
+	}
+
+	public double dist(float x1, float y1, float x2, float y2) {
+		double d = Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
+		// print(d);
+		return d;
 	}
 
 	public string[] getLatestUDPPacket(){
