@@ -308,6 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 571304898}
   - component: {fileID: 571304897}
+  - component: {fileID: 571304899}
   m_Layer: 0
   m_Name: DataReceiver
   m_TagString: Untagged
@@ -322,7 +323,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571304896}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3eff36bee58446d89fbc4f93ee5c6dc, type: 3}
   m_Name: 
@@ -350,6 +351,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &571304899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571304896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d198a600726f48e5a9fa73a5a452226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1058510961}
+  target: {fileID: 803239494}
+  port: 5065
+  lastReceivedUDPPacket:
+  - 
+  - 
+  curReceivedUDPPacket:
+  - 
+  - 
 --- !u!1 &803239490
 GameObject:
   m_ObjectHideFlags: 0

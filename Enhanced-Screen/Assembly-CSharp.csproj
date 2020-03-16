@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\CameraShake.cs" />
      <Compile Include="Assets\Scripts\LookAt.cs" />
      <Compile Include="Assets\Scripts\SocketClient.cs" />
+     <Compile Include="Assets\Scripts\TotalOffset.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/Users/liujiayu/Documents/ECS279/enhanced-screen/Enhanced-Screen/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
