@@ -18,11 +18,9 @@ public class TotalOffset : MonoBehaviour {
     // TODO (Yuqi/Jiayu): implement y-axis, and the parameter still need some tweaking
 
 
-	public GameObject cam;
+	public Camera cam;
 	public Transform target;
-    private float y_para = 0.08f;
-    private float x_para = 0.08f;
-	private double dist_thres = 1.0;
+    private float para = 0.08f;
 	Thread receiveThread;
 	UdpClient client;
 	public int port;
@@ -31,11 +29,15 @@ public class TotalOffset : MonoBehaviour {
 	private Vector2 orig_position = new Vector2(-1, -1);
     private Vector3 origCamPosition;
 	private Vector3 rawOffset;
+	private float origZoom;
+	private float curZoom;
+	private float zoomPara = 0.001f;
 
 	void Start () {
 		init();
         origCamPosition = target.position + new Vector3(0, 4, -11);
         cam.transform.position = origCamPosition;
+		cam.focalLength = 24;
 	}
 
 	void OnGUI(){
@@ -78,6 +80,8 @@ public class TotalOffset : MonoBehaviour {
                 curReceivedUDPPacket = text.Split(',');
 				if (Vector2.Equals(orig_position, new Vector2(-1, -1))) {
 					orig_position = new Vector2(float.Parse(curReceivedUDPPacket[0]), float.Parse(curReceivedUDPPacket[1]));
+					origZoom = float.Parse(curReceivedUDPPacket[2]);
+					curZoom = origZoom;
 				}
 
                 if (curReceivedUDPPacket[0] == "no") {
@@ -85,6 +89,7 @@ public class TotalOffset : MonoBehaviour {
                 } else {
                     float x_cur = float.Parse(curReceivedUDPPacket[0]);
 					float y_cur = float.Parse(curReceivedUDPPacket[1]);
+					curZoom = float.Parse(curReceivedUDPPacket[2]);
 
 					rawOffset = new Vector2(x_cur, y_cur) - orig_position; // z should be set to 0 automatically
                 }
@@ -107,9 +112,10 @@ public class TotalOffset : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
-        Vector3 desiredPosition = origCamPosition - rawOffset * x_para;
+        Vector3 desiredPosition = origCamPosition - rawOffset * para;
 		cam.transform.position = Vector3.Lerp(cam.transform.position, desiredPosition, 0.125f);
 		cam.transform.LookAt(target);
+		cam.focalLength = Mathf.Lerp(cam.focalLength, 24 + (curZoom - origZoom) * zoomPara, 2f);
 	}
 
 	void OnApplicationQuit(){

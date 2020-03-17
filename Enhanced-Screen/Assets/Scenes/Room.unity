@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d198a600726f48e5a9fa73a5a452226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1058510961}
+  cam: {fileID: 1058510963}
   target: {fileID: 803239494}
   port: 5065
   lastReceivedUDPPacket:
@@ -550,11 +550,11 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 2
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
   m_GateFitMode: 2
-  m_FocalLength: 50
+  m_FocalLength: 24
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -563,7 +563,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 53.130104
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
