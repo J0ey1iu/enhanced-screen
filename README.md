@@ -1,6 +1,9 @@
 # Mapping head motion to a camera in a 3D scene
 This a the final project for winter 2020 ECS279
 
+## Where's the report
+`ECS279_Final_Report.pdf`
+
 ## What's inside
 This repo contains the Unity project as well as a python program for face detection.
 
