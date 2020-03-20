@@ -20,7 +20,7 @@ public class TotalOffset : MonoBehaviour {
 
 	public Camera cam;
 	public Transform target;
-    private float para = 0.08f;
+    public float para = 0.08f;
 	Thread receiveThread;
 	UdpClient client;
 	public int port;
@@ -31,7 +31,7 @@ public class TotalOffset : MonoBehaviour {
 	private Vector3 rawOffset;
 	private float origZoom;
 	private float curZoom;
-	private float zoomPara = 0.001f;
+	public float zoomPara = 0.001f;
 
 	void Start () {
 		init();
@@ -115,7 +115,7 @@ public class TotalOffset : MonoBehaviour {
         Vector3 desiredPosition = origCamPosition - rawOffset * para;
 		cam.transform.position = Vector3.Lerp(cam.transform.position, desiredPosition, 0.125f);
 		cam.transform.LookAt(target);
-		cam.focalLength = Mathf.Lerp(cam.focalLength, 24 + (curZoom - origZoom) * zoomPara, 2f);
+		cam.focalLength = Mathf.Lerp(cam.focalLength, 24 + (curZoom - origZoom) * zoomPara, 0.1f);
 	}
 
 	void OnApplicationQuit(){

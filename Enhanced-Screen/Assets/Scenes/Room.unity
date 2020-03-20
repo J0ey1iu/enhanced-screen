@@ -365,6 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1058510963}
   target: {fileID: 803239494}
+  para: 0.08
   port: 5065
   lastReceivedUDPPacket:
   - 
@@ -372,6 +373,7 @@ MonoBehaviour:
   curReceivedUDPPacket:
   - 
   - 
+  zoomPara: 0.001
 --- !u!1 &803239490
 GameObject:
   m_ObjectHideFlags: 0
